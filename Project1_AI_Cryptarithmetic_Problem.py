@@ -5,32 +5,7 @@ import Constraint_Class_Functions as CTLib
 import Unary_Constraint as UCLib
 import Backtrack as BTLib
 import Finder as findLib
-
-
-def Recursion(k, tmp, dic, index, u):  # Recursion used to initialize array u
-    if(k == len(index)):
-        tmpp = tmp.copy()
-        u.append(tmpp)
-        return
-
-    for i in dic[index[k]]:
-        tmp.append(i)
-        Recursion(k+1, tmp, dic, index, u)
-        tmp.pop()
-
-
-def binarize(inp, dic):
-    u = [[] for x in range(len(inp[0]))]
-    tmp = []
-    index = []
-    for j in range(len(inp[0]) - 1, -1, -1):
-        for i in range(len(inp)):
-            index.append(inp[i][j])  # Gather each alphabet
-        Recursion(0, tmp, dic, index, u[j])
-        tmp.clear()
-        index.clear()
-
-    return u
+import Binarizer as binLib
 
 
 def main():
@@ -55,7 +30,7 @@ def main():
     UCLib.unary_constraint_for_c(inp, dic)
 
     # Transform n-ary constraints to binary constraints through matrix u as the intermediary
-    u = binarize(inp, dic)
+    u = binLib.binarize(inp, dic)
     u = UCLib.unary_constraint_for_u(u) # u will start from first column to the right
 
     # Initialize constraints for variables

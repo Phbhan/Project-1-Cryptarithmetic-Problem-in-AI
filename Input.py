@@ -11,8 +11,6 @@ def ReadFile():
 
 def SaveFile(output):
     file=open('output.txt','w')
-    s=[]
     for c in output:
-        if(len(c)==1): s.append(c)
-    for c in sorted(s): file.write(output[c])
+        if(len(c)==1): file.write(str(output[c]))
     file.close()

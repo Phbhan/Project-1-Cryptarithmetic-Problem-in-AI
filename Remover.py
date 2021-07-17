@@ -1,5 +1,5 @@
 # Eliminate variables which do not share the same amount as value at position given in inp at u
-def remove_diff_value_of_sohang_from_u(u, index_col, index_row, value):
+def remove_diff_value_of_operand_from_u(u, index_col, index_row, value):
     tmp = []
     for i in u[index_col]:
         # print(i)
@@ -14,7 +14,7 @@ def remove_diff_value_of_sohang_from_u(u, index_col, index_row, value):
 
 
 # Eliminate variables share the same amount as value at position given in inp at u
-def remove_same_value_of_sohang_from_u(u, index_col, index_row, value):
+def remove_same_value_of_operand_from_u(u, index_col, index_row, value):
     tmp = []
     for i in u[index_col]:
         u = u
