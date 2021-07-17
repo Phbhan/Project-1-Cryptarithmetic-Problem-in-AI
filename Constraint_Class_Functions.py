@@ -17,11 +17,6 @@ class Constraint:
             return all_diff_constraint(value)
         return True
 
-    def display(self):
-        print(self.neighbors)
-        print(self.locations)
-        print(self.type)
-
     def get_neighbors(self):
         return self.neighbors
 
@@ -36,7 +31,7 @@ def all_diff_constraint(value):  # Constraint for class Constraint
     return not(used[value])
 
 
-def find_value_constraint(u, value, locations): # Constraint for class Constraint
+def find_value_constraint(u, value, locations):  # Constraint for class Constraint
     # Traverse within u in search for any variable having the same as value
     for index in locations:
         check = False
@@ -46,4 +41,3 @@ def find_value_constraint(u, value, locations): # Constraint for class Constrain
         if check == False:
             return False
     return True
-

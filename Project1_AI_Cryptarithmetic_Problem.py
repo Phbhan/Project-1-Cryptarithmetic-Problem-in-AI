@@ -31,7 +31,8 @@ def main():
 
     # Transform n-ary constraints to binary constraints through matrix u as the intermediary
     u = binLib.binarize(inp, dic)
-    u = UCLib.unary_constraint_for_u(u) # u will start from first column to the right
+    # u will start from first column to the right
+    u = UCLib.unary_constraint_for_u(u)
 
     # Initialize constraints for variables
     con = {}
@@ -51,4 +52,3 @@ def main():
 
 
 main()
-

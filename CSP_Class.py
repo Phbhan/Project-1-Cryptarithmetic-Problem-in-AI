@@ -1,3 +1,6 @@
+import copy
+
+
 class CSP:
     """
     A CSP consists of:
@@ -15,11 +18,6 @@ class CSP:
 
         self.unassigned = variables.copy()
 
-    def display(self):
-        print(self.variables)
-        print(self.domains)
-        print(self.value)
-
     def get_unassigned_variable(self):
         return self.unassigned.pop(0)
 
@@ -27,7 +25,22 @@ class CSP:
         self.unassigned.insert(0, var)
 
     def get_domain(self, var):
+        '''
+        Get domain of variable var
+        '''
         return self.domains[var]
 
     def get_constraints(self, var):
         return self.constraints[var]
+
+    def get_domains(self):
+        ''' 
+        Get the whole domain of CSP
+        '''
+        return self.domains
+
+    def remove_from_domain(self, var, value):
+        self.domains[var].remove(value)
+
+    def set_domains(self, domains):
+        self.domains = copy.deepcopy(domains)

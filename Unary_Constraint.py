@@ -12,9 +12,7 @@ def unary_constraint(inp, dic):  # Unary constraints for each character and ''
 
 def unary_constraint_for_c(inp, dic):  # Unary constraints for c0, c1, etc...
     for i in inp[0]:
-        dic[i] = [v for v in range(0, 2)]
-    for i in inp[len(inp) - 1]:
-        dic[i] = [v for v in range(0, 2)]
+        dic[i] = [v for v in range(0, 9)]
 
     dic['c0'] = [0]
 

@@ -9,25 +9,33 @@ def Backtracking(assignment, csp, u):
         return assignment
 
     var = csp.get_unassigned_variable()
-    domain = csp.get_domain(var).copy()
+    domain = copy.deepcopy(csp.get_domain(var))
+
+    all_domain = copy.deepcopy(csp.get_domains())
 
     for value in domain:
 
-        temp = copy.deepcopy(u)
-        if csp.get_constraints(var).isConsistent(value, temp):
+        copy_u = copy.deepcopy(u)
+
+        if csp.get_constraints(var).isConsistent(value, copy_u):
             assignment[var] = value
             if csp.get_constraints(var).get_type() == 1:
                 CTLib.used[value] = True
-            if Inference(assignment, csp, var, value, temp) == True:
-                result = Backtracking(assignment, csp, temp)
+
+            if Inference(assignment, csp, var, value, copy_u) == True:
+                result = Backtracking(assignment, csp, copy_u)
                 if result != False:
                     return result
 
         # Recover previous action if recently considered value is not suitable with var
+            csp.set_domains(all_domain)
             if csp.get_constraints(var).get_type() == 1:
                 CTLib.used[value] = False
+
+    # prepare for the backtrack
     assignment[var] = -1
     csp.set_unassigned_variable(var)
+
     return False
 
 

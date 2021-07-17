@@ -1,5 +1,6 @@
 import Constraint_Class_Functions as CTLib
 import Remover as remoLib
+import copy
 
 
 def AC3(csp, queue, u, assignment):
@@ -21,12 +22,15 @@ def AC3(csp, queue, u, assignment):
 
 def Revise(csp, v, u):
     revise = False
-    for value in csp.get_domain(v):
+    domain = copy.deepcopy(csp.get_domain(v))
+    for value in domain:
         if not csp.get_constraints(v).isConsistent(value, u):
+            csp.remove_from_domain(v, value)
             for location in csp.get_constraints(v).get_locations():
-                if remoLib.remove_same_value_of_operand_from_u(
-                        u, location[0], location[1], value):
-                    revise = True
+                remoLib.remove_same_value_of_operand_from_u(
+                    u, location[0], location[1], value)
+            revise = True
+
     return revise
 
 
