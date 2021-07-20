@@ -1,5 +1,5 @@
 def readfile():
-    sign="-+*/()="
+    sign="-+*/="
     file=open('input.txt','r')
     line=file.readline()
     file.close()
@@ -10,15 +10,23 @@ def readfile():
     # line=[[s[i] for i in range(len(s))] for s in line]
     # line=[["" for _ in range(len(equa)-len(s))]+s for s in line]
     result=[]
-    sign_order=[]
+    sign_order=['+']
     s=0
     max_len=0
     for i in range(len(line)):
-        if line[i] in sign:
+        if line[i] in sign and line[i-1]!=")":
             sign_order.append(line[i])
             result.append([c for c in line[s:i]])
             if i-s>max_len: max_len=i-s
             s=i+1
+        elif line[i]=="(":
+            sign_order.append(line[i])
+            s=i+1
+        elif line[i]==")":
+            sign_order.append(line[i])
+            result.append([c for c in line[s:i]])
+            sign_order.append(line[i+1])
+            s=i+2
     sign_order.pop()
     result=result+[[c for c in line[s:]]]
     result=[['' for _ in range(max_len-len(s))]+s for s in result]
