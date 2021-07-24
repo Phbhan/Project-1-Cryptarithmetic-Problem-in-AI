@@ -1,4 +1,5 @@
-import copy
+from copy import deepcopy
+import Constraint as CSLib
 
 
 class CSP:
@@ -9,20 +10,17 @@ class CSP:
     variables   : a set of variables
     """
 
-    def __init__(self, variables, domains, constraints):  # Add more constraint is required
+    def __init__(self, variables, domains):  # Add more constraint is required
 
         self.variables = variables
         self.domains = domains
-        self.constraints = constraints
         self.value = {}
+        self.constraint = CSLib.Constraint()
 
-        self.unassigned = variables.copy()
-
-    def get_unassigned_variable(self):
-        return self.unassigned.pop(0)
-
-    def set_unassigned_variable(self, var):
-        self.unassigned.insert(0, var)
+        for i in variables:
+            self.value[i] = None
+        self.value[''] = 0
+        self.value['c0'] = 0
 
     def get_domain(self, var):
         '''
@@ -30,17 +28,14 @@ class CSP:
         '''
         return self.domains[var]
 
-    def get_constraints(self, var):
-        return self.constraints[var]
+    def get_value(self, var):
+        return self.value[var]
 
-    def get_domains(self):
-        ''' 
-        Get the whole domain of CSP
-        '''
-        return self.domains
+    def set_value(self, var, value):
+        self.value[var] = value
 
-    def remove_from_domain(self, var, value):
-        self.domains[var].remove(value)
+    def get_constraint(self):
+        return self.constraint
 
-    def set_domains(self, domains):
-        self.domains = copy.deepcopy(domains)
+    def get_all_values(self):
+        return self.value

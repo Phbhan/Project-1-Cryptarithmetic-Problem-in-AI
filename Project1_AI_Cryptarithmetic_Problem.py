@@ -1,54 +1,44 @@
-import copy
-from Input import *
-import CSP_Class as CSPLib
-import Constraint_Class_Functions as CTLib
-import Unary_Constraint as UCLib
 import Backtrack as BTLib
-import Finder as findLib
-import Binarizer as binLib
+import CSP_Class as CSPLib
+import Constraint as CSLib
+# rom Input import *
 
 
 def main():
-    inp = ReadFile()
+    # sign = ['+', '-', '+']
+    # inp = [['c2', 'c1', 'c0'], ['A', 'A', 'B'], [
+    #     '', 'C', 'A'], ['', 'B', 'A'], ['', 'D', 'B'], ['c0', 'c2', 'c1']]
+    sign = ['+', '+']
+    inp = [['c4', 'c3', 'c2', 'c1', 'c0'], ['', 'S', 'E', 'N', 'D'], [
+        '', 'M', 'O', 'R', 'E'], ['M', 'O', 'N', 'E', 'Y'], ['c0', 'c4', 'c3', 'c2', 'c1']]
 
     dic = {}
-    assignment = {}
+    asg = {}
+    asg_list = []
 
     # Initialize dic and assignment
     # dic: includes alphabets and their domains
-    # assignement: used to aid Backtrack algorithm
+
     for j in range(len(inp[0]) - 1, -1, -1):
         for i in range(len(inp)):
             if(inp[i][j] != ''):
                 dic[inp[i][j]] = [v for v in range(0, 10)]
             else:
                 dic[inp[i][j]] = [0]
-            assignment[inp[i][j]] = -1
+            asg_list.append(inp[i][j])
 
-    # Use unary constraint to remove unsuitable values in domain within dic
-    UCLib.unary_constraint(inp, dic)
-    UCLib.unary_constraint_for_c(inp, dic)
+    asg['list'] = asg_list
+    asg['index'] = 0
+    asg['max_len'] = [len(inp[0]), len(inp)]
 
-    # Transform n-ary constraints to binary constraints through matrix u as the intermediary
-    u = binLib.binarize(inp, dic)
-    # u will start from first column to the right
-    u = UCLib.unary_constraint_for_u(u)
+    CSLib.unary_constraint(inp, dic)
+    csp_list = []
+    for i in dic:
+        csp_list.append(i)
+    ExeCSP = CSPLib.CSP(csp_list, dic)
 
-    # Initialize constraints for variables
-    con = {}
-    for var in dic:
-        if(len(var) == 1):
-            con[var] = CTLib.Constraint(findLib.find_neighbors(
-                inp, var), findLib.find_location_in_u(inp, var, u), 1)
-        else:
-            con[var] = CTLib.Constraint(findLib.find_neighbors(
-                inp, var), findLib.find_location_in_u(inp, var, u), 0)
-
-    # Initialize CSP
-    CSPExe = CSPLib.CSP([var for var in dic], dic, con)
-
-    # Execute Backtrack
-    SaveFile(BTLib.Backtracking(assignment, CSPExe, u))
+    BTLib.Backtracking(asg, ExeCSP, sign, 0, 0)
+    print(ExeCSP.get_all_values())
 
 
 main()
