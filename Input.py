@@ -45,7 +45,7 @@ def readfile():
     result=result+[[c for c in line[s:]]]
     result=[['' for _ in range(max_len-len(s))]+s for s in result]
     remove_parathesis(sign_order)
-    return [['c'+str(i) for i in reversed(range(max_len))]]+result+[sign_order]+[['c'+str(i) if(i==0) else 'c'+str(max_len-i) for i in range(max_len)]]
+    return [['c'+str(i) for i in reversed(range(max_len))]]+result+[['c'+str(i) if(i==0) else 'c'+str(max_len-i) for i in range(max_len)]],sign_order
 
 def savefile(output):
     file=open('output.txt','w')
@@ -53,5 +53,5 @@ def savefile(output):
         if(len(c)==1): file.write(str(output[c]))
     file.close()
 
-s=readfile()
-print(s)
+s,r=readfile()
+print(s,r)
