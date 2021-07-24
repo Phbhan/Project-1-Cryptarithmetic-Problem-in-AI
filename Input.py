@@ -1,14 +1,26 @@
+def remove_parathesis(sign):
+    index=0
+    for _ in range(sign.count('(')):
+        index=sign.index('(',index)
+        if sign[index-1]=='-':
+            while index!=sign.index(')',index):
+                if sign[index]=='+':sign[index]='-'
+                elif sign[index]=='-':sign[index]='+'
+                index=index+1
+    index=0
+    while sign.count('(')!=0:
+        index=sign.index('(',index)
+        sign.pop(index)
+        index=sign.index(')',index)
+        sign.pop(index)
+ 
+    
 def readfile():
     sign="-+*/="
     file=open('input.txt','r')
     line=file.readline()
     file.close()
-    
-    # line=line.split('=')
-    # equa=[c for c in line[1]]
-    # line=line[0].split("+")
-    # line=[[s[i] for i in range(len(s))] for s in line]
-    # line=[["" for _ in range(len(equa)-len(s))]+s for s in line]
+
     result=[]
     sign_order=['+']
     s=0
@@ -27,10 +39,12 @@ def readfile():
             result.append([c for c in line[s:i]])
             sign_order.append(line[i+1])
             s=i+2
+    
     sign_order.pop()
+    if len(line[s:])>max_len: max_len=len(line[s:])
     result=result+[[c for c in line[s:]]]
     result=[['' for _ in range(max_len-len(s))]+s for s in result]
-
+    remove_parathesis(sign_order)
     return [['c'+str(i) for i in reversed(range(max_len))]]+result+[sign_order]+[['c'+str(i) if(i==0) else 'c'+str(max_len-i) for i in range(max_len)]]
 
 def savefile(output):
