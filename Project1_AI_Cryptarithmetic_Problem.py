@@ -1,6 +1,7 @@
 import Backtrack as BTLib
 import CSP_Class as CSPLib
 import Constraint as CSLib
+import multiply as BTMLib
 from Input import *
 
 
@@ -11,16 +12,19 @@ def main():
     # sign = ['+', '+']
     # inp = [['c4', 'c3', 'c2', 'c1', 'c0'], ['', 'S', 'E', 'N', 'D'], [
     #     '', 'M', 'O', 'R', 'E'], ['M', 'O', 'N', 'E', 'Y'], ['c0', 'c4', 'c3', 'c2', 'c1']]
+    
 
-
-    #hey girl, input like this:
     inp,sign=readfile()
-
-
+    mulSign = False
     
     dic = {}
     asg = {}
     asg_list = []
+
+    for traversal in sign:
+        if (traversal == '*'):
+            mulSign = True
+    
 
     # Initialize dic and assignment
     # dic: includes alphabets and their domains
@@ -42,9 +46,10 @@ def main():
     for i in dic:
         csp_list.append(i)
     ExeCSP = CSPLib.CSP(csp_list, dic)
-
-    BTLib.Backtracking(asg, ExeCSP, sign, 0, 0)
+    if (mulSign):
+        BTMLib.Backtrack_multiply(asg, ExeCSP, sign, q1=[], q2=[], result=0)
+    else:
+        BTLib.Backtracking(asg, ExeCSP, sign, 0, 0)
     print(ExeCSP.get_all_values())
-
 
 main()
