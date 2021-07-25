@@ -29,7 +29,7 @@ def Backtrack_multiply(assignment, csp, sign, q1, q2, result):
                 int(assignment['index'] % assignment['max_len'][1])]  # col, row
     constraint = csp.get_constraint()
 
-    # Vị trí kết quả
+    # Result position
     if assignment['max_len'][1] - location[1] == 2:
         print(q1, q2)
         tmp_result = int(get_result(q1, q2, result, location[0]) % 10)
@@ -52,7 +52,7 @@ def Backtrack_multiply(assignment, csp, sign, q1, q2, result):
                 assignment['index'] -= 1
         return False
 
-    if assignment['max_len'][1] - location[1] == 1:  # Vị trí số nhớ
+    if assignment['max_len'][1] - location[1] == 1:  # Memorized value position
         remain = int(floor(get_result(q1, q2, result, location[0]) / 10))
         if var == 'c0' and not(remain == 0):
             return False
@@ -67,7 +67,7 @@ def Backtrack_multiply(assignment, csp, sign, q1, q2, result):
     if csp.get_value(var) == None:
         domain = csp.get_domain(var)
         for i in domain:
-            # Kiểm tra số đang xét có được dùng chưa
+            # Check whether considering value is appropriate 
             if constraint.get_used(i) == False:
                 constraint.set_used(i, True)
                 if location[1] == 1:
@@ -99,42 +99,3 @@ def Backtrack_multiply(assignment, csp, sign, q1, q2, result):
         elif location[1] == 2:
             q2.pop(-1)
     return False
-
-
-def main_multiply():
-    # sign = ['+', '-', '+']
-    # inp = [['c2', 'c1', 'c0'], ['A', 'A', 'B'], [
-    #     '', 'C', 'A'], ['', 'B', 'A'], ['', 'D', 'B'], ['c0', 'c2', 'c1']]
-    sign = ['+', '*']
-    inp = [['c4', 'c3', 'c2', 'c1', 'c0'], ['', '', 'A', 'B', 'C'], [
-        '', '', '', 'D', 'E'], ['A', 'F', 'C', 'G', 'H'], ['c0', 'c4', 'c3', 'c2', 'c1']]
-
-    dic = {}
-    asg = {}
-    asg_list = []
-
-    # Initialize dic and assignment
-    # dic: includes alphabets and their domains
-
-    for j in range(len(inp[0]) - 1, -1, -1):
-        for i in range(len(inp)):
-            if(inp[i][j] != ''):
-                dic[inp[i][j]] = [v for v in range(0, 10)]
-            else:
-                dic[inp[i][j]] = [0]
-            asg_list.append(inp[i][j])
-
-    asg['list'] = asg_list
-    asg['index'] = 0
-    asg['max_len'] = [len(inp[0]), len(inp)]
-
-    CSLib.unary_constraint(inp, dic)
-    csp_list = []
-    for i in dic:
-        csp_list.append(i)
-    ExeCSP = CSPLib.CSP(csp_list, dic)
-    Backtrack_multiply(asg, ExeCSP, sign, q1=[], q2=[], result=0)
-    print(ExeCSP.get_all_values())
-
-
-main_multiply()
