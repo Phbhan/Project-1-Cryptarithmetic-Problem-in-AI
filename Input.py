@@ -54,4 +54,5 @@ def savefile(output):
     file.close()
 
 s,r=readfile()
-print(s,r)
+print(s)
+print(r)

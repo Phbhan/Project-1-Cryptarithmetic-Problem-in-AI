@@ -1,20 +1,20 @@
 import Backtrack as BTLib
 import CSP_Class as CSPLib
 import Constraint as CSLib
-# rom Input import *
+from Input import *
 
 
 def main():
     # sign = ['+', '-', '+']
     # inp = [['c2', 'c1', 'c0'], ['A', 'A', 'B'], [
     #     '', 'C', 'A'], ['', 'B', 'A'], ['', 'D', 'B'], ['c0', 'c2', 'c1']]
-    sign = ['+', '+']
-    inp = [['c4', 'c3', 'c2', 'c1', 'c0'], ['', 'S', 'E', 'N', 'D'], [
-        '', 'M', 'O', 'R', 'E'], ['M', 'O', 'N', 'E', 'Y'], ['c0', 'c4', 'c3', 'c2', 'c1']]
+    # sign = ['+', '+']
+    # inp = [['c4', 'c3', 'c2', 'c1', 'c0'], ['', 'S', 'E', 'N', 'D'], [
+    #     '', 'M', 'O', 'R', 'E'], ['M', 'O', 'N', 'E', 'Y'], ['c0', 'c4', 'c3', 'c2', 'c1']]
 
 
     #hey girl, input like this:
-    #inp,sign=readfile()
+    inp,sign=readfile()
 
 
     
