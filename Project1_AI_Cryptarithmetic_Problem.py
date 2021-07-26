@@ -3,6 +3,13 @@ import CSP_Class as CSPLib
 import Constraint as CSLib
 import multiply as BTMLib
 from Input import *
+import multiprocessing
+import time
+
+
+
+WAITING_TIME = 7 #minutes
+
 
 
 def main():
@@ -52,4 +59,18 @@ def main():
         BTLib.Backtracking(asg, ExeCSP, sign, 0, 0)
     print(ExeCSP.get_all_values())
 
-main()
+# main()
+
+
+
+
+if __name__ == '__main__':
+    t=WAITING_TIME*60
+    p = multiprocessing.Process(target=main)
+    p.start()
+    p.join(t)
+    if p.is_alive():
+        p.terminate()
+        print("No result")
+        p.join()
+
