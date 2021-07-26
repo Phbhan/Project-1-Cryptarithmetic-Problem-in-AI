@@ -58,6 +58,7 @@ def main():
     else:
         BTLib.Backtracking(asg, ExeCSP, sign, 0, 0)
     print(ExeCSP.get_all_values())
+    savefile(ExeCSP.get_all_values())
 
 # main()
 
