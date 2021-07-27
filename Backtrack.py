@@ -16,7 +16,7 @@ def Backtracking(assignment, csp, sign, value, mem):
         value = 0
         mem = 0
 
-    # Result position
+    # Result positioning
     if assignment['max_len'][1] - location[1] == 2:
         result = value
         if result in csp.get_domain(var):
@@ -38,7 +38,7 @@ def Backtracking(assignment, csp, sign, value, mem):
 
         return False
 
-    if assignment['max_len'][1] - location[1] == 1:  # Memorized value position
+    if assignment['max_len'][1] - location[1] == 1:  # Memorized value location
         remain = mem
         if var == 'c0' and not(mem == 0):
             return False
@@ -53,7 +53,7 @@ def Backtracking(assignment, csp, sign, value, mem):
     if csp.get_value(var) == None:
         domain = csp.get_domain(var)
         for i in domain:
-            # Check whether considering value is appropriate 
+            # Check whether considering value is used or not
             if constraint.get_used(i) == False:
                 constraint.set_used(i, True)
                 tmp = Assigned(location[1], sign, value, i, mem)
@@ -114,3 +114,4 @@ def reAssigned(k, sign, result, value, mem):
             result -= 10
             mem += 1
     return [result, mem]
+

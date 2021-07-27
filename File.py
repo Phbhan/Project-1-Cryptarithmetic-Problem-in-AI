@@ -49,8 +49,10 @@ def readfile():
 
 def savefile(output):
     file=open('output.txt','w')
-    tmp=sorted(output)
-    for c in tmp:
+    for c in output:
         if(len(c)==1): file.write(str(output[c]))
     file.close()
 
+s,r=readfile()
+print(s)
+print(r)

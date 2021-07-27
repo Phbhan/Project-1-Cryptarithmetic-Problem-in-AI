@@ -99,3 +99,4 @@ def Backtrack_multiply(assignment, csp, sign, q1, q2, result):
         elif location[1] == 2:
             q2.pop(-1)
     return False
+

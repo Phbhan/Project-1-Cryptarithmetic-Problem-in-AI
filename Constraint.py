@@ -39,3 +39,4 @@ def unary_constraint_for_c(inp, dic):  # Unary constraints for c0, c1, etc...
 def unary_constraint(inp, dic):
     unary_constraint_for_operand(inp, dic)
     unary_constraint_for_c(inp, dic)
+

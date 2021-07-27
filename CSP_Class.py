@@ -39,3 +39,4 @@ class CSP:
 
     def get_all_values(self):
         return self.value
+
