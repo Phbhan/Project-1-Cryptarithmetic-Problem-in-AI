@@ -3,7 +3,11 @@ import CSP_Class as CSPLib
 import Constraint as CSLib
 import Multiply as BTMLib
 from File import *
+import multiprocessing
+
 # rom Input import *
+
+WAITING_TIME = 7 #minutes
 
 
 def main():
@@ -49,4 +53,14 @@ def main():
     print(ExeCSP.get_all_values())
 
 
-main()
+# main()
+
+if __name__ == '__main__':
+    t=WAITING_TIME*60
+    p = multiprocessing.Process(target=main)
+    p.start()
+    p.join(t)
+    if p.is_alive():
+        p.terminate()
+        print("No result")
+        p.join()
