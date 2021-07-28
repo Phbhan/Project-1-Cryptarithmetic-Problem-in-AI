@@ -3,7 +3,16 @@ from math import floor
 import CSP_Class as CSPLib
 
 
-def Backtracking(assignment, csp, sign, value, mem):
+def Backtrack(assignment, csp, sign, result, mem):
+    '''
+    Apply backtrack to find answer
+    assignment : a dictionary contains list of characters to be assigned alternately, index, length of collum and row
+    csp        : csp variable
+    sign       : list of signs in input
+    result     : result of oparation in that collum
+    mem        : the memorized value of that collum
+    '''
+
     if isComplete(assignment):
         return True
 
@@ -12,73 +21,73 @@ def Backtracking(assignment, csp, sign, value, mem):
                 int(assignment['index'] % assignment['max_len'][1])]  # col, row
     constraint = csp.get_constraint()
 
-    if location[1] == 0:
-        value = 0
+    if location[1] == 0:  # At the first character in a collum
+        result = 0
         mem = 0
 
     # Result positioning
     if assignment['max_len'][1] - location[1] == 2:
-        result = value
         if result in csp.get_domain(var):
             if (csp.get_value(var) == None and constraint.get_used(result) == False):
                 csp.set_value(var, result)
-                constraint.set_used(value, True)
+                constraint.set_used(result, True)
                 assignment['index'] += 1
-                if Backtracking(assignment, csp, sign, value, mem) == True:
+                if Backtrack(assignment, csp, sign, result, mem) == True:
                     return True
                 assignment['index'] -= 1
-                constraint.set_used(value, False)
+                constraint.set_used(result, False)
                 csp.set_value(var, None)
             else:
                 if csp.get_value(var) == result:
                     assignment['index'] += 1
-                    if Backtracking(assignment, csp, sign, value, mem) == True:
+                    if Backtrack(assignment, csp, sign, result, mem) == True:
                         return True
                     assignment['index'] -= 1
-
         return False
 
-    if assignment['max_len'][1] - location[1] == 1:  # Memorized value location
+    # Memorized value location
+    if assignment['max_len'][1] - location[1] == 1:
         remain = mem
         if var == 'c0' and not(mem == 0):
             return False
         csp.set_value(var, remain)
         assignment['index'] += 1
-        if Backtracking(assignment, csp, sign, value, mem) == True:
+        if Backtrack(assignment, csp, sign, result, mem) == True:
             return True
         assignment['index'] -= 1
         csp.set_value(var, None)
         return False
 
+    # Operand location
     if csp.get_value(var) == None:
         domain = csp.get_domain(var)
-        for i in domain:
+        for asg_value in domain:
             # Check whether considering value is used or not
-            if constraint.get_used(i) == False:
-                constraint.set_used(i, True)
-                tmp = Assigned(location[1], sign, value, i, mem)
-                value = tmp[0]
+            if constraint.get_used(asg_value) == False:
+                constraint.set_used(asg_value, True)
+                tmp = Assigned(location[1], sign, result, asg_value, mem)
+                result = tmp[0]
                 mem = tmp[1]
-                csp.set_value(var, i)
+                csp.set_value(var, asg_value)
                 assignment['index'] += 1
-                if Backtracking(assignment, csp, sign, value, mem) == True:
+                if Backtrack(assignment, csp, sign, result, mem) == True:
                     return True
                 assignment['index'] -= 1
                 csp.set_value(var, None)
-                tmp = reAssigned(location[1], sign, value, i, mem)
-                value = tmp[0]
+                tmp = reAssigned(location[1], sign, result, asg_value, mem)
+                result = tmp[0]
                 mem = tmp[1]
-                constraint.set_used(i, False)
+                constraint.set_used(asg_value, False)
     else:
-        tmp = Assigned(location[1], sign, value, csp.get_value(var), mem)
-        value = tmp[0]
+        tmp = Assigned(location[1], sign, result, csp.get_value(var), mem)
+        result = tmp[0]
         mem = tmp[1]
         assignment['index'] += 1
-        if Backtracking(assignment, csp, sign, value, mem) == True:
+        if Backtrack(assignment, csp, sign, result, mem) == True:
             return True
         assignment['index'] -= 1
-        tmp = reAssigned(location[1], sign, value, csp.get_value(var), mem)
-        value = tmp[0]
+        tmp = reAssigned(location[1], sign, result, csp.get_value(var), mem)
+        result = tmp[0]
         mem = tmp[1]
     return False
 
@@ -114,4 +123,3 @@ def reAssigned(k, sign, result, value, mem):
             result -= 10
             mem += 1
     return [result, mem]
-
