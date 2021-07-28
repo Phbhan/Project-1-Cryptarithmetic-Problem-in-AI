@@ -1,7 +1,7 @@
 import Backtrack as BTLib
 import CSP_Class as CSPLib
 import Constraint as CSLib
-import Multiply as BTMLib
+import multiply as BTMLib
 from File import *
 import multiprocessing
 
@@ -51,7 +51,7 @@ def main():
     else: # Otherwise, execute the normal backtrack
         BTLib.Backtracking(asg, ExeCSP, sign, 0, 0)
     print(ExeCSP.get_all_values())
-
+    savefile(ExeCSP.get_all_values())
 
 # main()
 
