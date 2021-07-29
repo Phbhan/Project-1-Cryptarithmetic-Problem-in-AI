@@ -1,7 +1,7 @@
 import Backtrack as BTLib
 import CSP_Class as CSPLib
 import Constraint as CSLib
-import multiply as BTMLib
+import Multiply as BTMLib
 from File import *
 import multiprocessing
 
@@ -46,14 +46,17 @@ def main():
     ExeCSP.get_constraint().unary_constraint(inp, domain)
 
     if (mulSign):  # If multiply operator found, do backtrack exclusively for multiply
-        BTMLib.Backtrack_multiply(asg, ExeCSP, q1=[], q2=[], result=0)
+        if BTMLib.Backtrack_multiply(asg, ExeCSP, q1=[], q2=[], result=0) == False:
+            #print("NO SOLUTION")
+            savefile("NO SOLUTION")
+            return
     else:  # Otherwise, execute the normal backtrack
-        if BTLib.Backtrack(asg, ExeCSP, sign, 0, 0)==False: 
-            print("No solution")
-            savefile("No solution")
+        if BTLib.Backtrack(asg, ExeCSP, sign, 0, 0) == False:
+            #print("NO SOLUTION")
+            savefile("NO SOLUTION")
             return
 
-    print(ExeCSP.get_all_values())
+    # print(ExeCSP.get_all_values())
     savefile(ExeCSP.get_all_values())
 
 
@@ -65,6 +68,6 @@ if __name__ == '__main__':
     p.join(t)
     if p.is_alive():
         p.terminate()
-        print("No solution")
-        savefile("No solution")
+        #print("NO SOLUTION")
+        savefile("NO SOLUTION")
         p.join()
