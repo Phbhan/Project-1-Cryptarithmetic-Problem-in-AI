@@ -49,7 +49,13 @@ def readfile():
 
 def savefile(output):
     file=open('output.txt','w')
+    if isinstance(output,str): 
+        file.write(output)
+        file.close()
+        return
     tmp=sorted(output)
     for c in tmp:
         if(len(c)==1): file.write(str(output[c]))
     file.close()
+
+
