@@ -1,11 +1,22 @@
 # Project-1-Cryptarithmetic-Problem-in-AI
-## Requirement:
+## Problem statement:
 Cryptarithmetic Problem is a type of constraint satisfaction problem where the
 game is about digits and its unique replacement either with alphabets or other
 symbols. In cryptarithmetic problem, the digits (0-9) get substituted by some
 possible alphabets or symbols. The task in cryptarithmetic problem is to
 substitute each digit with an alphabet to get the result arithmetically correct
 
+In Google Play, you can find some game with cryptarithmetic puzzle. The Cryptogram is
+an example. You can enjoy it for some early experience but not be immersed in it.
+![Screenshot](https://user-images.githubusercontent.com/62047983/162348331-bb9b43d3-e8c1-438e-87a4-50e107f78ff3.png)
+We can perform all the arithmetic operations on a given cryptarithmetic problem. The
+rules or constraints on a cryptarithmetic problem are as follows:
+* There should be a unique digit to be replaced with a unique alphabet.
+* The result should satisfy the predefined arithmetic rules, i.e., `2+2 =4`, nothing else.
+Digits should be from 0-9 only.
+* There should be only one carry forward, while performing the addition operation
+on a problem.
+* The problem can be solved from both sides, i.e., left-hand side (L.H.S), or righthand side (R.H.S)
 ## Code general mechanism:
 Combine Backtracking and CSP methods.
 Step by step:
