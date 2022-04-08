@@ -14,8 +14,7 @@ an example. You can enjoy it for some early experience but not be immersed in it
 We can perform all the arithmetic operations on a given cryptarithmetic problem. The
 rules or constraints on a cryptarithmetic problem are as follows:
 * There should be a unique digit to be replaced with a unique alphabet.
-* The result should satisfy the predefined arithmetic rules, i.e., `2+2 =4`, nothing else.
-Digits should be from 0-9 only.
+* The result should satisfy the predefined arithmetic rules, i.e., `2+2 =4`, nothing else. Digits should be from 0-9 only.
 * There should be only one carry forward, while performing the addition operation
 on a problem.
 * The problem can be solved from both sides, i.e., left-hand side (L.H.S), or righthand side (R.H.S)
@@ -68,16 +67,15 @@ we receive from the resulting operation from the column back to its original sta
 
 At the end if Backtrack can no longer be performed, return false (or fail), which
 means the formula has no result.
+
 To calculate an operation on a column:
-* For addition (+) and subtraction (-):
-Every time a variable is traversed during the operation, we add or subtract
+* For addition (+) and subtraction (-): Every time a variable is traversed during the operation, we add or subtract
 that value of variable with the result of the considering column. After
 implementation, if column result larger than 10, we minus it by 10 and carry
 number will hold 1 after applying addition, if column result less than 0, we
 increase it by 10 before applying subtraction and make carry number holds - 1.
 
-* For multiplication (*):
-These algorithms are implemented based on how multiplication table is applied in
+* For multiplication (*): These algorithms are implemented based on how multiplication table is applied in
 real life, we would like to present our explaination on this matter using that table:
 
 ![Screenshot](https://user-images.githubusercontent.com/62047983/162346537-cc3428d2-fc58-4d91-9d55-8ff1e8d0cae2.png)
@@ -97,6 +95,7 @@ in order. The strategy follows like this:
 We multiply their value at the corresponding indices (E.g. `3*1` being `A * E`), then for
 each column and row, we decrease and increase by 1 consecutively (E.g `3*1`
 decrease 3 by 1 and increase 1 by 1 we have `2*2` at the next line).
+
 It should result in:
 
 ![Screenshot](https://user-images.githubusercontent.com/62047983/162346546-81ff11cf-d6ee-4698-a3a3-059469a96319.png)
@@ -104,9 +103,6 @@ It should result in:
 However, `2*3` and `1*3` do not exist because there is no third candidate character at row D E.
 
 Afterward, apply addition by column to receive the result we seek for.
-
-Thê following component sections are the names (a, b, c and so on…) of files and their
-included functions (i, ii, iii and so on…) which is submitted along with this report.
 
 ## Result:
 This algorithm has the complexity of O(`9^n`) whereas n is the amount of variable from
