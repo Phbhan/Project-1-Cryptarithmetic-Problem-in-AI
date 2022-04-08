@@ -8,7 +8,9 @@ substitute each digit with an alphabet to get the result arithmetically correct
 
 In Google Play, you can find some game with cryptarithmetic puzzle. The Cryptogram is
 an example. You can enjoy it for some early experience but not be immersed in it.
+
 ![Screenshot](https://user-images.githubusercontent.com/62047983/162348331-bb9b43d3-e8c1-438e-87a4-50e107f78ff3.png)
+
 We can perform all the arithmetic operations on a given cryptarithmetic problem. The
 rules or constraints on a cryptarithmetic problem are as follows:
 * There should be a unique digit to be replaced with a unique alphabet.
