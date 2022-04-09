@@ -1,4 +1,5 @@
 # Project-1-Cryptarithmetic-Problem-in-AI
+You can find the full report here: <a href="https://github.com/Phbhan/Project-1-Cryptarithmetic-Problem-in-AI/blob/master/Project01_Report.pdf"><strong>Link</strong></a>
 ## Member and assignment:
 Full Name| Assigment|
 :---:|:---|
